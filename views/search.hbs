@@ -1,0 +1,18 @@
+
+{{#if data.length}}
+  <h2>Search Results for {{query}}</h2>
+  {{#each products}}
+    <div class="product">
+      <h3>{{this.name}}</h3>
+      <p>{{this.description}}</p>
+      <p>Price: {{this.price}}</p>
+    </div>
+  {{/each}}
+{{else}}
+  <h2>No results found for {{query}}</h2>
+{{/if}}
+<style>
+  .clickdetail:hover {
+    opacity: 1
+  }
+</style>

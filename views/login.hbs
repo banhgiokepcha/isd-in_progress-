@@ -1,0 +1,57 @@
+<!-- <form method="POST" action="/login">
+    <label for="username">Username</label>
+    <input type="username" name="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" required>
+    <button id = "button-Login" type="button" onclick="Login()">Login</button>
+</form> -->
+
+    <button id = "button-Login" type="button" onclick="Login()">Login</button>
+    <p>Don't have an account? <a href="register.hbs">Register now</a></p>
+         
+
+
+
+
+<script>
+    function SWAlert(title, icon) {
+        return Swal.fire({
+        title: title,
+        icon: icon,
+        })
+        
+    }
+    async function Login() {
+      const {value: formValues} = await Swal.fire({
+      title: 'Login Form',
+      html: `<input type="text" id="username" class="swal2-input" placeholder="Username">
+      <input type="password" id="password" class="swal2-input" placeholder="Password">`,
+      confirmButtonText: 'Sign in',
+      focusConfirm: false,
+      preConfirm: () => {
+      return [
+        $('#username').val(),
+        $('#password').val(),
+
+      ]
+
+     }})
+    if(formValues) {
+       $.post('/login', {
+        username : formValues[0],
+        password : formValues[1]
+       }, async(data) => {
+        if(data == "true") {
+            //notify that user that has been logined, this is temp since it supposes to redirect to another page
+            await Swal.fire("Login successfully")
+            window.location.reload()
+        } else {
+            await Swal.fire("Login failed")
+        }
+        )
+       }) 
+    }
+    }
+
+
+</script>
